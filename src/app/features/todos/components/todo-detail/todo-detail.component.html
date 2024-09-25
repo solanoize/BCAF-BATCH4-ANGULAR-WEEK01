@@ -1,7 +1,7 @@
 <li class="list-group-item d-flex justify-content-between align-items-start">
   <div class="ms-2 me-auto">
     <div *ngIf="!isEdit" class="fw-bold" [ngClass]="getClass(todo.isDone)">
-      <input type="checkbox" [(ngModel)]="todo.isDone" />
+      <input *ngIf="!forTrash" type="checkbox" [(ngModel)]="todo.isDone" />
       {{ todo.task }}
     </div>
     <div *ngIf="isEdit" class="fw-bold" [ngClass]="getClass(todo.isDone)">
@@ -13,7 +13,22 @@
       />
     </div>
   </div>
-  <div class="btn-group" role="group" aria-label="Basic example">
+  <div
+    *ngIf="forTrash"
+    class="btn-group"
+    role="group"
+    aria-label="Basic example"
+  >
+    <button (click)="restore()" class="btn btn-sm btn-success">
+      <fa-icon [icon]="icons.restore"></fa-icon>
+    </button>
+  </div>
+  <div
+    *ngIf="!forTrash"
+    class="btn-group"
+    role="group"
+    aria-label="Basic example"
+  >
     <button
       *ngIf="!isEdit && !isConfirmRemove"
       (click)="isConfirmRemove = !isConfirmRemove"

@@ -49,6 +49,19 @@ export class TodoService {
     );
     if (todoRestore) {
       this.todos.push(todoRestore);
+
+      let payload: ITodo[] = this.trashTodos.filter(
+        (value: ITodo) => value.id !== id
+      );
+      this.trashTodos = payload;
     }
+  }
+
+  getTotalTrash(): number {
+    return this.trashTodos.length;
+  }
+
+  getTotalTodos(): number {
+    return this.todos.length;
   }
 }

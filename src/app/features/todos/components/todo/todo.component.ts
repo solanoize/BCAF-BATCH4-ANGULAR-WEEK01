@@ -22,7 +22,18 @@ let MOCK_DATA = [
 
 @Component({
   selector: 'app-todo',
-  templateUrl: './todo.component.html',
+  template: `
+    <div class="card shadow">
+      <div class="card-body">
+        <h5 class="card-title">{{ title }}</h5>
+        <app-todo-form></app-todo-form>
+      </div>
+      <app-todo-list [forTrash]="forTrash" [todos]="todos"></app-todo-list>
+      <div class="card-footer">
+        <app-todo-total [forTrash]="forTrash"></app-todo-total>
+      </div>
+    </div>
+  `,
   styleUrl: './todo.component.css',
 })
 export class TodoComponent {

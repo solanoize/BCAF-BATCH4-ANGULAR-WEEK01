@@ -10,7 +10,6 @@ import { TodoService } from '../../../../cores/services/todo.service';
 export class TodoListComponent {
   @Input() todos: ITodo[] = [];
   @Input() forTrash: boolean = false;
-  @Output() eventEmitter: EventEmitter<ITodo[]> = new EventEmitter();
 
   constructor(private todoService: TodoService) {}
 

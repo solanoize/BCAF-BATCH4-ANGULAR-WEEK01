@@ -8,6 +8,7 @@ import {
   faPencil,
   faPlusCircle,
   faTrash,
+  faUndo,
 } from '@fortawesome/free-solid-svg-icons';
 import { TodoService } from '../../../../cores/services/todo.service';
 
@@ -23,11 +24,13 @@ export class TodoDetailComponent {
     remove: faTrash,
     checklist: faCheckCircle,
     cancel: faClose,
+    restore: faUndo,
   };
 
   isEdit: boolean = false;
   isConfirmRemove: boolean = false;
   @Input() todo!: ITodo;
+  @Input() forTrash: boolean = false;
 
   constructor(private todoService: TodoService) {}
 
@@ -46,5 +49,9 @@ export class TodoDetailComponent {
     }
 
     return '';
+  }
+
+  restore() {
+    this.todoService.restore(this.todo.id);
   }
 }
