@@ -1,0 +1,81 @@
+src/app
+├── app-routing.module.ts
+├── app.component.css
+├── app.component.html
+├── app.component.spec.ts
+├── app.component.ts
+├── app.module.ts
+├── attr.directive.ts
+├── berkas
+│   ├── berkas.component.css
+│   ├── berkas.component.html
+│   └── berkas.component.ts
+├── components
+│   ├── user
+│   │   ├── user.component.css
+│   │   ├── user.component.html
+│   │   └── user.component.ts
+│   └── user-profile
+│       ├── user-profile.component.css
+│       ├── user-profile.component.html
+│       └── user-profile.component.ts
+├── cores
+│   ├── interfaces
+│   ├── mocks
+│   │   └── todo.mock.ts
+│   ├── models
+│   └── services
+│       └── todo.service.ts
+├── features
+│   ├── products
+│   │   ├── components
+│   │   │   └── product-detail
+│   │   │       ├── product-detail.component.css
+│   │   │       ├── product-detail.component.html
+│   │   │       └── product-detail.component.ts
+│   │   ├── interfaces
+│   │   │   ├── i-product.ts
+│   │   │   └── i-variant.ts
+│   │   └── models
+│   │       ├── product.ts
+│   │       └── variant.ts
+│   ├── todos
+│   │   ├── components
+│   │   │   ├── todo
+│   │   │   │   ├── todo.component.css
+│   │   │   │   ├── todo.component.html
+│   │   │   │   └── todo.component.ts
+│   │   │   ├── todo-detail
+│   │   │   │   ├── todo-detail.component.css
+│   │   │   │   ├── todo-detail.component.html
+│   │   │   │   └── todo-detail.component.ts
+│   │   │   ├── todo-form
+│   │   │   │   ├── todo-form.component.css
+│   │   │   │   ├── todo-form.component.html
+│   │   │   │   └── todo-form.component.ts
+│   │   │   ├── todo-list
+│   │   │   │   ├── todo-list.component.css
+│   │   │   │   ├── todo-list.component.html
+│   │   │   │   └── todo-list.component.ts
+│   │   │   └── todo-total
+│   │   │       ├── todo-total.component.css
+│   │   │       ├── todo-total.component.html
+│   │   │       └── todo-total.component.ts
+│   │   └── interfaces
+│   │       └── i-todo.ts
+│   └── users
+│       └── components
+│           └── user-detail
+│               ├── user-detail.component.css
+│               ├── user-detail.component.html
+│               └── user-detail.component.ts
+├── produk.spec.ts
+├── produk.ts
+└── shared
+    └── components
+        └── navigation
+            ├── navigation.component.css
+            ├── navigation.component.html
+            └── navigation.component.ts
+
+29 directories, 49 files

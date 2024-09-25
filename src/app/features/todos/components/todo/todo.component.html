@@ -1,0 +1,14 @@
+<div class="card shadow">
+  <div class="card-body">
+    <h5 class="card-title">{{ title }}</h5>
+    <app-todo-form></app-todo-form>
+  </div>
+  <app-todo-list
+    [forTrash]="forTrash"
+    [todos]="todos"
+    (eventEmitter)="remove($event)"
+  ></app-todo-list>
+  <div class="card-footer">
+    <app-todo-total [todos]="todos"></app-todo-total>
+  </div>
+</div>
