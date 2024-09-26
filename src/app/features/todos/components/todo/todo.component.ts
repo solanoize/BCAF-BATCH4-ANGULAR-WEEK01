@@ -26,7 +26,7 @@ let MOCK_DATA = [
     <div class="card shadow">
       <div class="card-body">
         <h5 class="card-title">{{ title }}</h5>
-        <app-todo-form></app-todo-form>
+        <app-todo-form *ngIf="!forTrash"></app-todo-form>
       </div>
       <app-todo-list [forTrash]="forTrash" [todos]="todos"></app-todo-list>
       <div class="card-footer">
