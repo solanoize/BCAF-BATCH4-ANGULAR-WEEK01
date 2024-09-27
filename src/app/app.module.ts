@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProductDetailComponent } from './features/products/components/product-detail/product-detail.component';
 import { NavigationComponent } from './shared/components/navigation/navigation.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -23,6 +23,10 @@ import { CustomerDetailComponent } from './features/customers/components/custome
 import { CustomerListComponent } from './features/customers/components/customer-list/customer-list.component';
 import { CustomerSearchComponent } from './features/customers/components/customer-search/customer-search.component';
 import { ReservasiCreateComponent } from './features/reservasi/components/reservasi-create/reservasi-create.component';
+import { ReservasiChoiceComponent } from './features/reservasi/components/reservasi-choice/reservasi-choice.component';
+import { ReservasiListComponent } from './features/reservasi/components/reservasi-list/reservasi-list.component';
+import { ReservasiDetailComponent } from './features/reservasi/components/reservasi-detail/reservasi-detail.component';
+import { ReservasiSearchComponent } from './features/reservasi/components/reservasi-search/reservasi-search.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +45,10 @@ import { ReservasiCreateComponent } from './features/reservasi/components/reserv
     CustomerListComponent,
     CustomerSearchComponent,
     ReservasiCreateComponent,
+    ReservasiChoiceComponent,
+    ReservasiListComponent,
+    ReservasiDetailComponent,
+    ReservasiSearchComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,11 +56,12 @@ import { ReservasiCreateComponent } from './features/reservasi/components/reserv
     FormsModule,
     NgbModule,
     FontAwesomeModule,
+    NgbTimepickerModule,
   ],
   providers: [
     provideHttpClient(),
     TodoService,
-    { provide: LOCALE_ID, useValue: 'id-ID' },
+    // { provide: LOCALE_ID, useValue: 'id-ID' },
     UserService,
   ],
   bootstrap: [AppComponent],

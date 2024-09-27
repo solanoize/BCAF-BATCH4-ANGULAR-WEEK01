@@ -1,6 +1,9 @@
 <div class="card">
   <div class="card-body">
-    <h5 class="card-title">Reservasi</h5>
+    <h5 class="card-title d-flex justify-content-between">
+      <span>Reservasi</span>
+      <app-reservasi-choice></app-reservasi-choice>
+    </h5>
     <div class="row mb-3 mt-3">
       <div class="col">
         <div class="form-group">
@@ -41,6 +44,7 @@
             type="date"
             class="form-control"
           />
+          <ngb-timepicker [(ngModel)]="time" />
         </div>
       </div>
       <div class="col">
@@ -64,6 +68,13 @@
         </div>
       </div>
     </div>
+    <div class="row mb-3 mt-3">
+      <app-customer-detail
+        [customer]="reservasi.customer"
+      ></app-customer-detail>
+    </div>
+  </div>
+  <div class="card-footer">
+    <button class="btn btn-primary" (click)="onCreate()">Simpan</button>
   </div>
 </div>
-{{ reservasi | json }}

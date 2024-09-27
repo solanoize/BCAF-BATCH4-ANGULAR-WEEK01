@@ -10,6 +10,7 @@ import { ReservasiService } from '../../../../cores/services/reservasi.service';
 })
 export class ReservasiCreateComponent {
   // reservasi!: IReservasi = new Reservasi();
+  time = { hour: 13, minute: 30 };
 
   constructor(private reservasiService: ReservasiService) {}
 
@@ -19,5 +20,11 @@ export class ReservasiCreateComponent {
 
   set reservasi(data: IReservasi) {
     this.reservasiService.reservasi = data;
+  }
+
+  onCreate() {
+    this.reservasiService.create(this.time).subscribe((resp: IReservasi) => {
+      console.log(resp);
+    });
   }
 }
