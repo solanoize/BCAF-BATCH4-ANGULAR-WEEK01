@@ -5,13 +5,17 @@ import { Reservasi } from '../models/reservasi';
 import { ICustomer } from '../interfaces/i-customer';
 import { environment } from '../../../environments/environment.development';
 import { Observable } from 'rxjs';
+import { IPagination } from '../interfaces/i-pagination';
+import { Pagination } from '../models/pagination';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ReservasiService {
   private _reservasi: IReservasi = new Reservasi();
-  private _reservations: IReservasi[] = [];
+  private _reservations: IPagination<IReservasi[]> = new Pagination<
+    IReservasi[]
+  >();
 
   constructor(private http: HttpClient) {}
 
@@ -23,11 +27,11 @@ export class ReservasiService {
     this._reservasi = data;
   }
 
-  get reservations(): IReservasi[] {
+  get reservations(): IPagination<IReservasi[]> {
     return this._reservations;
   }
 
-  set reservations(data: IReservasi[]) {
+  set reservations(data: IPagination<IReservasi[]>) {
     this._reservations = data;
   }
 
@@ -35,9 +39,12 @@ export class ReservasiService {
     this._reservasi.customer = data;
   }
 
-  public all(): Observable<IReservasi[]> {
-    return this.http.get<IReservasi[]>(
-      `${environment.BASE_URL}/reservasi?_limit=5`
+  public all(
+    page: number = 1,
+    query: string = ''
+  ): Observable<IPagination<IReservasi[]>> {
+    return this.http.get<IPagination<IReservasi[]>>(
+      `${environment.BASE_URL}/reservasi?customer.name=${query}&_page=${page}&_per_page=2`
     );
   }
 
@@ -46,11 +53,6 @@ export class ReservasiService {
     minute: string | number;
   }): Observable<IReservasi> {
     let { id, ...payload } = { ...this._reservasi };
-
-    console.log(
-      'UYEE',
-      payload.jadwal.toString() + ` ${time.hour}:${time.minute}`
-    );
 
     payload.jadwal = Date.parse(
       payload.jadwal.toString() + `${time.hour}:${time.minute}`
@@ -66,6 +68,12 @@ export class ReservasiService {
           'Content-Type': 'application/json',
         },
       }
+    );
+  }
+
+  remove(id: number | string) {
+    return this.http.delete<IReservasi>(
+      `${environment.BASE_URL}/reservasi/${id}/`
     );
   }
 }

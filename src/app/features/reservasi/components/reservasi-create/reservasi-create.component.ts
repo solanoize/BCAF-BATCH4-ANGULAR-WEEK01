@@ -11,6 +11,7 @@ import { ReservasiService } from '../../../../cores/services/reservasi.service';
 export class ReservasiCreateComponent {
   // reservasi!: IReservasi = new Reservasi();
   time = { hour: 13, minute: 30 };
+  dateNow: number = Date.now();
 
   constructor(private reservasiService: ReservasiService) {}
 
@@ -25,6 +26,31 @@ export class ReservasiCreateComponent {
   onCreate() {
     this.reservasiService.create(this.time).subscribe((resp: IReservasi) => {
       console.log(resp);
+    });
+  }
+
+  onUpdate() {}
+
+  onGetReservation(data: IReservasi) {
+    this.reservasiService.reservasi = data;
+  }
+
+  whenReservationValid(timestamp: number) {
+    let dateNow: number = Date.parse(new Date().toISOString().split('T')[0]);
+    let reservationSchedule: number = Date.parse(
+      new Date(timestamp).toISOString().split('T')[0]
+    );
+
+    if (reservationSchedule > dateNow) {
+      return true;
+    }
+
+    return false;
+  }
+
+  onRemove() {
+    this.reservasiService.remove(this.reservasi.id).subscribe((resp: any) => {
+      this.reservasiService.reservasi = new Reservasi();
     });
   }
 }

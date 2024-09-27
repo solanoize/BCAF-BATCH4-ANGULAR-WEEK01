@@ -1,7 +1,18 @@
-import { Component, inject, TemplateRef } from '@angular/core';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Output,
+  TemplateRef,
+} from '@angular/core';
+import {
+  ModalDismissReasons,
+  NgbActiveModal,
+  NgbModal,
+} from '@ng-bootstrap/ng-bootstrap';
 import { ReservasiService } from '../../../../cores/services/reservasi.service';
 import { IReservasi } from '../../../../cores/interfaces/i-reservasi';
+import { IPagination } from '../../../../cores/interfaces/i-pagination';
 
 @Component({
   selector: 'app-reservasi-choice',
@@ -10,6 +21,9 @@ import { IReservasi } from '../../../../cores/interfaces/i-reservasi';
 })
 export class ReservasiChoiceComponent {
   // private modalService = inject(NgbModal);
+  @Output() emitReservation: EventEmitter<IReservasi> = new EventEmitter();
+  page: number = 1;
+  query: string = '';
 
   constructor(
     private modalService: NgbModal,
@@ -41,13 +55,36 @@ export class ReservasiChoiceComponent {
     }
   }
 
-  get reservations(): IReservasi[] {
+  get reservations(): IPagination<IReservasi[]> {
     return this.reservasiService.reservations;
   }
 
   onAllReservations() {
-    this.reservasiService.all().subscribe((resp: IReservasi[]) => {
+    this.reservasiService.all().subscribe((resp: IPagination<IReservasi[]>) => {
       this.reservasiService.reservations = resp;
     });
+  }
+
+  onPaginateReservation(data: number) {
+    console.log(typeof data);
+    this.reservasiService
+      .all(data, this.query)
+      .subscribe((resp: IPagination<IReservasi[]>) => {
+        this.reservasiService.reservations = resp;
+      });
+  }
+
+  onGetReservation(data: IReservasi) {
+    this.emitReservation.emit(data);
+  }
+
+  onSearchReservation() {
+    console.log(this.query);
+    this.page = 1;
+    this.reservasiService
+      .all(this.page, this.query)
+      .subscribe((resp: IPagination<IReservasi[]>) => {
+        this.reservasiService.reservations = resp;
+      });
   }
 }

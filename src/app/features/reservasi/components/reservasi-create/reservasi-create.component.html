@@ -2,7 +2,9 @@
   <div class="card-body">
     <h5 class="card-title d-flex justify-content-between">
       <span>Reservasi</span>
-      <app-reservasi-choice></app-reservasi-choice>
+      <app-reservasi-choice
+        (emitReservation)="onGetReservation($event)"
+      ></app-reservasi-choice>
     </h5>
     <div class="row mb-3 mt-3">
       <div class="col">
@@ -41,6 +43,7 @@
           <label>Jadwal</label>
           <input
             [(ngModel)]="reservasi.jadwal"
+            [value]="reservasi.jadwal | date"
             type="date"
             class="form-control"
           />
@@ -73,8 +76,30 @@
         [customer]="reservasi.customer"
       ></app-customer-detail>
     </div>
+
+    <div class="row mb-3 mt-3">
+      <app-reservasi-sisa [reservasi]="reservasi"></app-reservasi-sisa>
+    </div>
   </div>
   <div class="card-footer">
-    <button class="btn btn-primary" (click)="onCreate()">Simpan</button>
+    <button *ngIf="!reservasi.id" class="btn btn-primary" (click)="onCreate()">
+      Simpan
+    </button>
+
+    <button
+      *ngIf="reservasi.id && !whenReservationValid(reservasi.jadwal)"
+      class="btn btn-warning"
+      (click)="onRemove()"
+    >
+      Cancel
+    </button>
+
+    <button
+      *ngIf="reservasi.id && whenReservationValid(reservasi.jadwal)"
+      class="btn btn-primary"
+      (click)="onUpdate()"
+    >
+      Update
+    </button>
   </div>
 </div>
