@@ -6,6 +6,13 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import {
+  faAdd,
+  faBorderAll,
+  faList,
+  faSave,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
 
 class Hobi {
   id: number = 0;
@@ -51,35 +58,89 @@ const VALIDATORS = {
 })
 export class AppComponent {
   form: FormGroup;
+  active = 1;
+  isGrid = false;
+  icon = {
+    add: faAdd,
+    list: faList,
+    grid: faBorderAll,
+    save: faSave,
+    remove: faTrash,
+  };
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
-      name: ['', [Validators.required]],
-      skills: this.formBuilder.array([]),
+      employees: this.formBuilder.array([], [Validators.required]),
     });
   }
 
-  getSkills(): FormArray {
-    return this.form.get('skills') as FormArray;
+  getEmployees(): FormArray {
+    return this.form.get('employees') as FormArray;
   }
 
-  newSkill(): FormGroup {
+  getEmployee(indexEmployee: number): FormGroup {
+    return this.getEmployees().at(indexEmployee) as FormGroup;
+  }
+
+  newEmployee() {
     return this.formBuilder.group({
-      skill: ['', [Validators.required]],
+      firstName: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(15),
+          Validators.pattern('^[a-zA-Z]+$'),
+        ],
+      ],
+      lastName: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(15),
+          Validators.pattern('^[a-zA-Z]+$'),
+          ,
+        ],
+      ],
+      skills: this.formBuilder.array([], [Validators.required]),
+    });
+  }
+
+  addEmployee() {
+    this.getEmployees().push(this.newEmployee());
+  }
+
+  removeEmployee(indexEmployee: number) {
+    this.getEmployees().removeAt(indexEmployee);
+  }
+
+  getSkills(indexEmployee: number): FormArray {
+    return this.getEmployee(indexEmployee).get('skills') as FormArray;
+  }
+
+  getSkill(indexEmployee: number, indexSkill: number): FormGroup {
+    return this.getSkills(indexEmployee).at(indexSkill) as FormGroup;
+  }
+
+  newSkill() {
+    return this.formBuilder.group({
+      skill: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(15),
+          Validators.pattern('^[a-zA-Z]+$'),
+        ],
+      ],
       exp: [0, [Validators.required]],
     });
   }
 
-  addSkill() {
-    this.getSkills().push(this.newSkill());
+  addSkill(indexEmployee: number) {
+    this.getSkills(indexEmployee).push(this.newSkill());
   }
 
-  getSkill(index: number): FormGroup {
-    return this.getSkills().at(index) as FormGroup;
-  }
-
-  removeSkill(index: number) {
-    this.getSkills().removeAt(index);
+  removeSkill(indexEmployee: number, indexSkill: number) {
+    this.getSkills(indexEmployee).removeAt(indexSkill);
   }
 
   onSubmit() {
