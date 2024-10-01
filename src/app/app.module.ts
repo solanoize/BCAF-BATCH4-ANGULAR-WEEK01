@@ -29,6 +29,7 @@ import { ReservasiDetailComponent } from './features/reservasi/components/reserv
 import { ReservasiSearchComponent } from './features/reservasi/components/reservasi-search/reservasi-search.component';
 import { ReservasiSisaComponent } from './features/reservasi/components/reservasi-sisa/reservasi-sisa.component';
 import { MessageValidationComponent } from './shared/components/message-validation/message-validation.component';
+import { CardComponent } from './components/card/card.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { MessageValidationComponent } from './shared/components/message-validati
     ReservasiSearchComponent,
     ReservasiSisaComponent,
     MessageValidationComponent,
+    CardComponent,
   ],
   imports: [
     BrowserModule,
