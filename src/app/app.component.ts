@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -48,7 +48,7 @@ const VALIDATORS = {
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   listOfHobi: Hobi[] = [
     new Hobi(1, 'Memasak'),
     new Hobi(2, 'Mancing'),
@@ -56,6 +56,9 @@ export class AppComponent {
   ];
 
   form: FormGroup;
+
+  ppn: number = 0.11;
+  hargaAfterPPN: number = 0;
 
   // form: FormGroup = new FormGroup({
   //   name: new FormControl('Yanwar', VALIDATORS.nameValidator),
@@ -72,6 +75,7 @@ export class AppComponent {
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
       name: ['', VALIDATORS.nameValidator],
+      harga: [0],
       isMarried: [false],
       gender: ['', VALIDATORS.genderValidator],
       hobi: [null, VALIDATORS.hobiValidator],
@@ -80,6 +84,21 @@ export class AppComponent {
         street: ['', VALIDATORS.address.streetValidator],
         zipCode: ['', VALIDATORS.address.zipCodeValidator],
       }),
+    });
+  }
+
+  ngOnInit(): void {
+    this.form.get('name')?.statusChanges.subscribe((status: string) => {
+      console.log('Listen status name field: ', status);
+    });
+
+    this.form.get('hobi')?.valueChanges.subscribe((value: number) => {
+      console.log('Listen value hobi field: ', value);
+    });
+
+    this.form.get('harga')?.valueChanges.subscribe((value: number) => {
+      let hargaPPN = this.ppn * value;
+      this.hargaAfterPPN = hargaPPN + value;
     });
   }
 
