@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
+  FormArray,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -48,58 +49,37 @@ const VALIDATORS = {
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent implements OnInit {
-  listOfHobi: Hobi[] = [
-    new Hobi(1, 'Memasak'),
-    new Hobi(2, 'Mancing'),
-    new Hobi(3, 'Membaca'),
-  ];
-
+export class AppComponent {
   form: FormGroup;
-
-  ppn: number = 0.11;
-  hargaAfterPPN: number = 0;
-
-  // form: FormGroup = new FormGroup({
-  //   name: new FormControl('Yanwar', VALIDATORS.nameValidator),
-  //   isMarried: new FormControl(true),
-  //   gender: new FormControl('', VALIDATORS.genderValidator),
-  //   hobi: new FormControl(0, VALIDATORS.hobiValidator),
-  //   address: new FormGroup({
-  //     city: new FormControl('', VALIDATORS.address.cityValidator),
-  //     street: new FormControl('', VALIDATORS.address.streetValidator),
-  // zipCode: new FormControl('', VALIDATORS.address.zipCodeValidator),
-  //   }),
-  // });
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
-      name: ['', VALIDATORS.nameValidator],
-      harga: [0],
-      isMarried: [false],
-      gender: ['', VALIDATORS.genderValidator],
-      hobi: [null, VALIDATORS.hobiValidator],
-      address: this.formBuilder.group({
-        city: ['', VALIDATORS.address.cityValidator],
-        street: ['', VALIDATORS.address.streetValidator],
-        zipCode: ['', VALIDATORS.address.zipCodeValidator],
-      }),
+      name: ['', [Validators.required]],
+      skills: this.formBuilder.array([]),
     });
   }
 
-  ngOnInit(): void {
-    this.form.get('name')?.statusChanges.subscribe((status: string) => {
-      console.log('Listen status name field: ', status);
-    });
+  getSkills(): FormArray {
+    return this.form.get('skills') as FormArray;
+  }
 
-    this.form.get('hobi')?.valueChanges.subscribe((value: number) => {
-      console.log('Listen value hobi field: ', value);
+  newSkill(): FormGroup {
+    return this.formBuilder.group({
+      skill: ['', [Validators.required]],
+      exp: [0, [Validators.required]],
     });
+  }
 
-    this.form.get('harga')?.valueChanges.subscribe((value: number) => {
-      let hargaPPN = this.ppn * value;
-      this.hargaAfterPPN = hargaPPN + value;
-    });
+  addSkill() {
+    this.getSkills().push(this.newSkill());
+  }
+
+  getSkill(index: number): FormGroup {
+    return this.getSkills().at(index) as FormGroup;
+  }
+
+  removeSkill(index: number) {
+    this.getSkills().removeAt(index);
   }
 
   onSubmit() {

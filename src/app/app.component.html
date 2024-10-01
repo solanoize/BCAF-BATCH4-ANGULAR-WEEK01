@@ -23,109 +23,55 @@
   <div class="card-body">
     <form [formGroup]="form" (submit)="onSubmit()" novalidate>
       <div class="form-group mb-3">
-        <label>Harga</label>
-        <input
-          type="number"
-          name="harga"
-          formControlName="harga"
-          class="form-control"
-        />
-        <h5>Harga Total: {{ hargaAfterPPN }}</h5>
-        <app-message-validation
-          [field]="form.get('harga')"
-          [label]="'harga'"
-        ></app-message-validation>
-      </div>
-      <div class="form-group mb-3">
-        <label>Name</label>
+        <label>Nama</label>
         <input
           type="text"
           name="name"
           formControlName="name"
           class="form-control"
         />
+
         <app-message-validation
           [field]="form.get('name')"
           [label]="'name'"
         ></app-message-validation>
       </div>
-      <div class="form-group">
-        <label>Is Married</label>
-        <div class="form-check">
-          <input
-            type="checkbox"
-            class="form-check-input"
-            formControlName="isMarried"
-          />
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Gender</label>
-        <div class="form-check">
-          <input
-            type="radio"
-            class="form-check-input"
-            formControlName="gender"
-            value="men"
-          />
-          <label>Men</label>
-        </div>
-        <div class="form-check">
-          <input
-            type="radio"
-            class="form-check-input"
-            formControlName="gender"
-            value="women"
-          />
-          <label>Women</label>
-        </div>
-        <app-message-validation
-          [field]="form.get('gender')"
-          [label]="'gender'"
-        ></app-message-validation>
-      </div>
-      <div class="form-group">
-        <label>Hobi</label>
-        <select class="form-control" formControlName="hobi">
-          <option [ngValue]="null">Pilih Hobimu</option>
-          <option *ngFor="let h of listOfHobi" [ngValue]="h.id">
-            {{ h.name }}
-          </option>
-        </select>
-        <app-message-validation
-          [field]="form.get('hobi')"
-          [label]="'hobi'"
-        ></app-message-validation>
-      </div>
-      <h4>Address</h4>
-      <div formGroupName="address">
-        <div class="form-group mb-3">
-          <label>City</label>
-          <input type="text" class="form-control" formControlName="city" />
-          <app-message-validation
-            [field]="form.get('address')?.get('city')"
-            [label]="'city'"
-          ></app-message-validation>
-        </div>
 
-        <div class="form-group mb-3">
-          <label>Street</label>
-          <textarea class="form-control" formControlName="street"></textarea>
-          <app-message-validation
-            [field]="form.get('address')?.get('street')"
-            [label]="'street'"
-          ></app-message-validation>
-        </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Skill</th>
+            <th>Experience</th>
+            <th>#</th>
+          </tr>
+        </thead>
+        <tbody formArrayName="skills">
+          <tr *ngFor="let skill of getSkills().controls; let i = index">
+            <td [formGroupName]="i">
+              <input type="text" formControlName="skill" class="form-control" />
+              <app-message-validation
+                [field]="getSkill(i).get('skill')"
+                [label]="'skill'"
+              ></app-message-validation>
+            </td>
+            <td [formGroupName]="i">
+              <input type="number" formControlName="exp" class="form-control" />
+              <app-message-validation
+                [field]="getSkill(i).get('exp')"
+                [label]="'exp'"
+              ></app-message-validation>
+            </td>
+            <td>
+              <button class="btn btn-danger" (click)="removeSkill(i)">
+                Remove
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-        <div class="form-group mb-3">
-          <label>Zip Code</label>
-          <input type="text" class="form-control" formControlName="zipCode" />
-          <app-message-validation
-            [field]="form.get('address')?.get('zipCode')"
-            [label]="'zip code'"
-          ></app-message-validation>
-        </div>
-      </div>
+      <button class="btn btn-primary" (click)="addSkill()">Add Skill</button>
+
       <button *ngIf="form.valid" type="submit" class="btn btn-primary mt-3">
         Submit
       </button>
@@ -135,3 +81,5 @@
     </form>
   </div>
 </app-card>
+
+{{ form.value | json }}
