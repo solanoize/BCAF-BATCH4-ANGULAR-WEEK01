@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProductDetailComponent } from './features/products/components/product-detail/product-detail.component';
 import { NavigationComponent } from './shared/components/navigation/navigation.component';
@@ -28,6 +28,7 @@ import { ReservasiListComponent } from './features/reservasi/components/reservas
 import { ReservasiDetailComponent } from './features/reservasi/components/reservasi-detail/reservasi-detail.component';
 import { ReservasiSearchComponent } from './features/reservasi/components/reservasi-search/reservasi-search.component';
 import { ReservasiSisaComponent } from './features/reservasi/components/reservasi-sisa/reservasi-sisa.component';
+import { MessageValidationComponent } from './shared/components/message-validation/message-validation.component';
 
 @NgModule({
   declarations: [
@@ -51,11 +52,13 @@ import { ReservasiSisaComponent } from './features/reservasi/components/reservas
     ReservasiDetailComponent,
     ReservasiSearchComponent,
     ReservasiSisaComponent,
+    MessageValidationComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     NgbModule,
     FontAwesomeModule,
     NgbTimepickerModule,

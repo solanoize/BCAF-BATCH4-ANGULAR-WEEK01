@@ -33,22 +33,24 @@
     </thead>
 
     <tbody>
-      <tr *ngFor="let r of reservations!.data">
-        <td *ngIf="r.customer">{{ r.customer.name }}</td>
-        <td *ngIf="!r.customer">No Customer</td>
-        <td>{{ r.nomorKontrak }}</td>
-        <td>{{ r.nomorBPKB }}</td>
-        <td>{{ r.tipeKendaraan }}</td>
-        <td>{{ r.jadwal | date : "medium" }}</td>
-        <td>
-          <button
-            (click)="onGetReservation(r); modal.close()"
-            class="btn btn-sm btn-primary"
-          >
-            Pilih
-          </button>
-        </td>
-      </tr>
+      <app-reservasi-detail></app-reservasi-detail>
+
+      <!-- <tr *ngFor="let r of reservations!.data">
+          <td *ngIf="r.customer">{{ r.customer.name }}</td>
+          <td *ngIf="!r.customer">No Customer</td>
+          <td>{{ r.nomorKontrak }}</td>
+          <td>{{ r.nomorBPKB }}</td>
+          <td>{{ r.tipeKendaraan }}</td>
+          <td>{{ r.jadwal | date : "medium" }}</td>
+          <td>
+            <button
+              (click)="onGetReservation(r); modal.close()"
+              class="btn btn-sm btn-primary"
+            >
+              Pilih
+            </button>
+          </td>
+        </tr> -->
     </tbody>
     <tfoot>
       <ngb-pagination

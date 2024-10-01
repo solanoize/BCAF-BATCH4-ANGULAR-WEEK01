@@ -9,13 +9,210 @@
   </div>
 </div> -->
 
-<div class="container mt-5 mb-5">
+<!-- <div class="container mt-5 mb-5">
   <div class="row">
     <div class="col-md-4">
       <app-customer-choice></app-customer-choice>
     </div>
     <div class="col-md-8">
       <app-reservasi-create></app-reservasi-create>
+    </div>
+  </div>
+</div> -->
+
+<div class="container my-5">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <form #form="ngForm" (submit)="onSubmit()">
+          <div class="card-body">
+            <div class="row">
+              <div class="form-group mb-3 col">
+                <label class="mb-2">Email</label>
+                <input
+                  class="form-control"
+                  type="email"
+                  #email="ngModel"
+                  name="email"
+                  ngModel
+                  required
+                  email
+                  [ngClass]="{
+                    'border-success': email.valid,
+                  }"
+                />
+                <app-message-validation [field]="email" [label]="'email'" />
+              </div>
+              <div class="form-group mb-3 col">
+                <label class="mb-2">Username</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  #username="ngModel"
+                  name="username"
+                  ngModel
+                  required
+                  [maxlength]="10"
+                  [minlength]="5"
+                  pattern="^[a-zA-Z]+$"
+                  [ngClass]="{
+                    'border-success': username.valid,
+                  }"
+                />
+                <app-message-validation
+                  [field]="username"
+                  [label]="'username'"
+                />
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="form-group col">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    ngModel
+                    #menikah="ngModel"
+                    name="menikah"
+                    required
+                  />
+                  <label class="form-check-label"> Menikah </label>
+                </div>
+
+                <div
+                  *ngIf="!menikah.valid && (menikah.dirty || menikah.touched)"
+                  class="text-helper text-danger"
+                >
+                  <span *ngIf="menikah.errors!['required']">
+                    Menikah is required
+                  </span>
+                </div>
+              </div>
+
+              <div class="form-group col">
+                <label>Gender</label>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    ngModel
+                    #gender="ngModel"
+                    name="gender"
+                    required
+                    value="pria"
+                  />
+                  <label class="form-check-label"> Pria </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    ngModel
+                    #gender="ngModel"
+                    name="gender"
+                    required
+                    value="wanita"
+                  />
+                  <label class="form-check-label"> Wanita </label>
+                </div>
+
+                <app-message-validation [field]="gender" [label]="'gender'" />
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="form-group">
+                <label class="mb-2">Hobi</label>
+                <select
+                  class="form-select"
+                  name="hobi"
+                  required
+                  ngModel
+                  #hobi="ngModel"
+                >
+                  <option [ngValue]="null">Open this select hobi</option>
+                  <option [ngValue]="1">Berenang</option>
+                  <option [ngValue]="2">Mancing</option>
+                  <option [ngValue]="3">Turu</option>
+                </select>
+
+                <app-message-validation [field]="hobi" [label]="'hobi'" />
+              </div>
+            </div>
+
+            <div class="row mb-3" ngModelGroup="address">
+              <div class="form-group col">
+                <label class="mb-2">City</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="city"
+                  #addressCity="ngModel"
+                  ngModel
+                  required
+                />
+
+                <app-message-validation
+                  [field]="addressCity"
+                  [label]="'city'"
+                />
+              </div>
+
+              <div class="form-group col">
+                <label class="mb-2">Zip Code</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="zipCode"
+                  ngModel
+                  required
+                  #addressZipCode="ngModel"
+                />
+
+                <app-message-validation
+                  [field]="addressZipCode"
+                  [label]="'zip code'"
+                />
+              </div>
+            </div>
+
+            <div class="row" ngModelGroup="address">
+              <div class="form-group col">
+                <label class="mb-2">Street</label>
+                <textarea
+                  class="form-control"
+                  #addressStreet="ngModel"
+                  name="street"
+                  ngModel
+                  required
+                ></textarea>
+                <app-message-validation
+                  [field]="addressStreet"
+                  [label]="'street'"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="card-footer d-flex gap-3">
+            <button
+              [disabled]="form.invalid"
+              class="btn btn-primary"
+              type="submit"
+            >
+              Save
+            </button>
+            <button
+              class="btn btn-secondary"
+              (click)="form.reset()"
+              type="button"
+            >
+              Reset
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>
