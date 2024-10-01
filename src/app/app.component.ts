@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 
 class Hobi {
   id: number = 0;
@@ -50,17 +55,33 @@ export class AppComponent {
     new Hobi(3, 'Membaca'),
   ];
 
-  form: FormGroup = new FormGroup({
-    name: new FormControl('Yanwar', VALIDATORS.nameValidator),
-    isMarried: new FormControl(true),
-    gender: new FormControl('', VALIDATORS.genderValidator),
-    hobi: new FormControl(0, VALIDATORS.hobiValidator),
-    address: new FormGroup({
-      city: new FormControl('', VALIDATORS.address.cityValidator),
-      street: new FormControl('', VALIDATORS.address.streetValidator),
-      zipCode: new FormControl('', VALIDATORS.address.zipCodeValidator),
-    }),
-  });
+  form: FormGroup;
+
+  // form: FormGroup = new FormGroup({
+  //   name: new FormControl('Yanwar', VALIDATORS.nameValidator),
+  //   isMarried: new FormControl(true),
+  //   gender: new FormControl('', VALIDATORS.genderValidator),
+  //   hobi: new FormControl(0, VALIDATORS.hobiValidator),
+  //   address: new FormGroup({
+  //     city: new FormControl('', VALIDATORS.address.cityValidator),
+  //     street: new FormControl('', VALIDATORS.address.streetValidator),
+  // zipCode: new FormControl('', VALIDATORS.address.zipCodeValidator),
+  //   }),
+  // });
+
+  constructor(private formBuilder: FormBuilder) {
+    this.form = this.formBuilder.group({
+      name: ['', VALIDATORS.nameValidator],
+      isMarried: [false],
+      gender: ['', VALIDATORS.genderValidator],
+      hobi: [null, VALIDATORS.hobiValidator],
+      address: this.formBuilder.group({
+        city: ['', VALIDATORS.address.cityValidator],
+        street: ['', VALIDATORS.address.streetValidator],
+        zipCode: ['', VALIDATORS.address.zipCodeValidator],
+      }),
+    });
+  }
 
   onSubmit() {
     if (this.form.valid) {
