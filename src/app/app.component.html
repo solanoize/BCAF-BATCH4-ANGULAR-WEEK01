@@ -21,7 +21,7 @@
 </div> -->
 <app-card>
   <div class="card-body">
-    <form [formGroup]="form" (submit)="onSubmit()">
+    <form [formGroup]="form" (submit)="onSubmit()" novalidate>
       <div class="form-group mb-3">
         <label>Name</label>
         <input
@@ -112,7 +112,12 @@
           ></app-message-validation>
         </div>
       </div>
-      <button type="submit" class="btn btn-primary mt-3">Submit</button>
+      <button *ngIf="form.valid" type="submit" class="btn btn-primary mt-3">
+        Submit
+      </button>
+      <button *ngIf="form.invalid" type="button" class="btn btn-danger mt-3">
+        Submit
+      </button>
     </form>
   </div>
 </app-card>
